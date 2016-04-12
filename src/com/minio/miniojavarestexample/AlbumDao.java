@@ -53,9 +53,19 @@ public class AlbumDao {
         for (Result<Item> result : myObjects) {
             Item item = result.get();
             System.out.println(item.lastModified() + ", " + item.size() + ", " + item.objectName());
+
+            // Generate a presigned URL which expires in a day
+            url = minioClient.presignedGetObject(minioBucket, item.objectName(), 60 * 60 * 24);
+             
+            // Create a new Album Object
             Album album = new Album();
-            album.setUrl("https://play.minio.io:9000/" + minioBucket + "/" + item.objectName());
+            
+            // Set the presigned URL in the album object
+            album.setUrl(url);
+            
+            // Add the album object to the list holding Album objects
             list.add(album);
+            
         }
 
         // Return list of albums.

@@ -14,7 +14,7 @@
  * limitations under the License.
  */
 
-package com.minio.miniojavarestexample;
+package com.minio.photoapiservice;
 
 import java.util.ArrayList;
 import java.util.List;

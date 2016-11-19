@@ -200,7 +200,7 @@ For simplicity we don't have a database in this example. listAlbums() simply con
 
 Every time a calling client consumes the list API service, we generate new presigned URLs which will expire in 1 day. This is a best practice and we recommend using presigned URLs wherever applicable. Expiring presigned URLs are especially useful in share use cases.
  
-Learn more about this [API ](https://docs.minio.io/docs/java-api-reference#presignedGetObject )
+Learn more about this [API ]( https://docs.minio.io/docs/java-client-api-reference#presignedGetObject)
 
 ```java
 

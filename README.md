@@ -1,4 +1,4 @@
-# Java Photo API Service [![Gitter](https://badges.gitter.im/Join%20Chat.svg)](https://gitter.im/minio/minio?utm_source=badge&utm_medium=badge&utm_campaign=pr-badge&utm_content=badge)
+# Java Photo API Service [![Slack](https://slack.minio.io/slack?type=svg)](https://slack.minio.io)
 
 ![minio_JAVA1](https://github.com/minio/minio-java-rest-example/blob/master/docs/screenshots/minio-JAVA1.jpg?raw=true)
 

@@ -34,7 +34,6 @@ Name your project PhotoAPIService
 ![minio_JAVA3](https://github.com/minio/minio-java-rest-example/blob/master/docs/screenshots/minio-JAVA3.jpg?raw=true)
 
 
-
 * Step 3 -  Create a new pom.xml in the next screen.  
 
 This pom.xml will have all the configuration details that Maven needs, to build the project.
@@ -109,7 +108,6 @@ This pom.xml will have all the configuration details that Maven needs, to build 
 		</dependency>
   </dependencies>
 </project>
-
 ```
 
 * Step 5 - Set Up web.xml 
@@ -122,7 +120,6 @@ web.xml also known as the deployment descriptor, resides under \WebContent\WEB-I
 Modify the web.xml to include the servlet-name and url-pattern as shown below.
 
 ```xml
-
 <?xml version="1.0" encoding="UTF-8"?>
 <web-app xmlns:xsi="http://www.w3.org/2001/XMLSchema-instance" xmlns="http://xmlns.jcp.org/xml/ns/javaee" xsi:schemaLocation="http://xmlns.jcp.org/xml/ns/javaee http://xmlns.jcp.org/xml/ns/javaee/web-app_3_1.xsd" version="3.1">
   <display-name>PhotoAPIService</display-name>
@@ -145,7 +142,6 @@ Modify the web.xml to include the servlet-name and url-pattern as shown below.
 	</servlet-mapping>
   
 </web-app>
-
 ```
 
 ## 3. Create a Service - PhotoService.java
@@ -155,7 +151,6 @@ Create PhotoService.java where we add a list api method. Calling the list api on
 
 
 ```java
-
 package com.minio.photoapiservice;
 
 import java.io.IOException;
@@ -191,7 +186,6 @@ public class PhotoService {
         return albumDao.listAlbums();
     }
 }
-
 ```
 
 ## 4. Data Management -  AlbumDao.java
@@ -203,8 +197,7 @@ Every time a calling client consumes the list API service, we generate new presi
 Learn more about this [API ]( https://docs.minio.io/docs/java-client-api-reference#presignedGetObject)
 
 ```java
-
- package com.minio.photoapiservice;
+package com.minio.photoapiservice;
 
 import java.util.ArrayList;
 import java.util.List;
@@ -262,8 +255,6 @@ public class AlbumDao {
         return list;
     }
 }
-
-
 ```
 
 ## 5. Create the Root Element -  Album.java
@@ -271,7 +262,6 @@ public class AlbumDao {
 The root element holds the underlying Album data. url is a member variable in the Album class.
 
 ```java
-
 package com.minio.photoapiservice;
 
 import java.util.ArrayList;
@@ -298,7 +288,6 @@ public class Album {
         this.description = description;
     }
 }
-
 ```
 
 ## 6. Build 
@@ -306,10 +295,8 @@ public class Album {
 Select the Project and do a Maven Clean and then do a Maven Install which automatically builds the project. 
 
 ```sh
-
 Project -> Run -> Maven Clean
 Project -> Run -> Maven Install
-
 ```
 
 ![minio_JAVA7](https://github.com/minio/minio-java-rest-example/blob/master/docs/screenshots/minio-JAVA7.jpg?raw=true)

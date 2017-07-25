@@ -11,7 +11,7 @@ The full code is available at:  [https://github.com/minio/minio-java-rest-exampl
 
 ##  1. Dependencies
 
-We will use Eclipse IDE to build this example and include Jersey, JSON and asm packages.
+We will use Eclipse IDE for Java EE Developers to build this example and include Jersey, JSON and asm packages.
 
   * Eclipse
   * Jersey Bundle
@@ -22,29 +22,46 @@ We will use Eclipse IDE to build this example and include Jersey, JSON and asm p
 
 ## 2. SetUp  
 
-* Step 1 -  Launch Eclipse -> New Project -> Create a Dynamic Web Project. 
+* Step 1 - Create your album 
+
+	```sh
+	mc mb play/album
+
+	mc cp ~/Downloads/Pic-1.jpg play/album/
+	mc cp ~/Downloads/Pic-2.jpg play/album/
+	mc cp ~/Downloads/Pic-3.jpg play/album/
+	```
+* Step 2 - Use `mc policy` command to set access policy on this bucket to "both". More details on the `mc policy` command can be found [here](https://docs.minio.io/docs/minio-client-complete-guide#policy).
+
+	```sh
+	mc policy public play/album
+	```
+
+![minio-album.png](https://github.com/minio/minio-java-rest-example/blob/master/docs/screenshots/minio-album.png?raw=true)
+
+* Step 3 -  Launch Eclipse -> New Project -> Create a Dynamic Web Project. 
  
 Name your project PhotoAPIService
 
-![minio_JAVA2](https://github.com/minio/minio-java-rest-example/blob/master/docs/screenshots/minio-JAVA2.jpg?raw=true)
+![minio-server-TomCatv8.5.png](https://github.com/minio/minio-java-rest-example/blob/master/docs/screenshots/minio-server-TomCatv8.5.png?raw=true)
 
 
-* Step 2 - Convert the project to a Maven Project as shown below
+* Step 4 - Convert the project to a Maven Project as shown below
 
 ![minio_JAVA3](https://github.com/minio/minio-java-rest-example/blob/master/docs/screenshots/minio-JAVA3.jpg?raw=true)
 
 
-* Step 3 -  Create a new pom.xml in the next screen.  
+* Step 5 -  Create a new pom.xml in the next screen.  
 
 This pom.xml will have all the configuration details that Maven needs, to build the project.
 
 ![minio_JAVA4](https://github.com/minio/minio-java-rest-example/blob/master/docs/screenshots/minio-JAVA4.jpg?raw=true)
 
-* Step 4 -  Include the minio library and other dependencies in the pom.xml file as shown below. 
+* Step 6 -  Include the minio library and other dependencies in the pom.xml file as shown below. 
 
  Here's the full pom.xml generated after adding all the above dependencies successfully. 
 
-![minio_JAVA5](https://github.com/minio/minio-java-rest-example/blob/master/docs/screenshots/minio-JAVA5.jpg?raw=true)
+![minio-dependencies3.0.6](https://github.com/minio/minio-java-rest-example/blob/master/docs/screenshots/minio-dependencies3.0.6.png?raw=true)
 
 
 ```xml
@@ -104,7 +121,7 @@ This pom.xml will have all the configuration details that Maven needs, to build 
 		<dependency>
 			<groupId>io.minio</groupId>
 			<artifactId>minio</artifactId>
-			<version>1.0.1</version>
+			<version>3.0.6</version>
 		</dependency>
   </dependencies>
 </project>
@@ -236,15 +253,12 @@ public class AlbumDao {
         for (Result<Item> result : myObjects) {
             Item item = result.get();
             System.out.println(item.lastModified() + ", " + item.size() + ", " + item.objectName());
-
-            // Generate a presigned URL which expires in a day
-            url = minioClient.presignedGetObject(minioBucket, item.objectName(), 60 * 60 * 24);
              
             // Create a new Album Object
             Album album = new Album();
             
             // Set the presigned URL in the album object
-            album.setUrl(url);
+            album.setUrl(minioClient.presignedGetObject(minioBucket, item.objectName(), 60 * 60 * 24));
             
             // Add the album object to the list holding Album objects
             list.add(album);
@@ -311,9 +325,9 @@ After Maven install, you should see "BUILD SUCCESS" as shown below in the consol
 * Step 1 - Configure Tomcat
 
     * Click on Servers -> New
-    *  Pick the Tomcat v8.0 Server and then click Next (as shown below)
+    *  Pick the Tomcat v8.5.16 Server and then click Next (as shown below)
 
-![minio_JAVA9](https://github.com/minio/minio-java-rest-example/blob/master/docs/screenshots/minio-JAVA9.jpg?raw=true)
+![minio-server-TomCatv8.5](https://github.com/minio/minio-java-rest-example/blob/master/docs/screenshots/minio-server-TomCatv8.5.png?raw=true)
 
 * Step 2 - Add your Project to the Server
 
